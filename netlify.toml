@@ -1,6 +1,17 @@
+[build]
+  # 告诉 Netlify 你的函数文件放在哪个目录
+  functions = "netlify/functions"
+
 [[headers]]
+  # 对所有请求生效
   for = "/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
     Access-Control-Allow-Methods = "GET, POST, OPTIONS"
     Access-Control-Allow-Headers = "Content-Type"
+
+[[redirects]]
+  # 把 Twikoo 的请求转发给函数处理
+  from = "/api/*"
+  to = "/.netlify/functions/twikoo/:splat"
+  status = 200
